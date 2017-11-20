@@ -50,5 +50,5 @@ def player_stats(player)
 end
 
 def big_shoe_rebounds
-  game_hash.map { |side, categories| categories[:players].values.map { |k,v| k[:rebounds] } }.flatten.sort.last
+  game_hash.map {|side, categories| categories[:players].sort_by { |name, stats| stats[:shoe] } }[0][0][1][:rebounds]
 end
