@@ -50,15 +50,5 @@ def player_stats(player)
 end
 
 def big_shoe_rebounds
-  shoe_size = 0
-  rebounds = nil
-  game_hash.select do |side, categories|
-    categories[:players].each do |name, stats|
-      if stats[:shoe] > shoe_size
-        shoe_size = stats[:shoe]
-        rebounds = stats[:rebounds]
-      end
-    end
-  end
-  rebounds
+  game_hash.map { |side, categories| categories[:players].values.map { |k,v| k[:rebounds] } }.flatten.sort.last
 end
