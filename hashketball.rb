@@ -124,8 +124,6 @@ def num_points_scored(player)
     key.each do |key2,value|
       if key2 == :players
         value.each do |name,stats|
-          puts name
-          puts stats
           if name == player
             points = stats[:points]
           end
@@ -136,4 +134,16 @@ def num_points_scored(player)
   points
 end
 
-num_points_scored("Jeff Adrien")
+def shoe_size(name)
+  output=0
+  game_hash.each do |loc,key|
+    key.each do |key2,value|
+      if key2 == :players
+        if value = name
+          output = value[1]
+        end
+      end
+    end
+  end
+  output
+end
