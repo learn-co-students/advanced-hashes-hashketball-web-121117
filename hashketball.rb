@@ -125,18 +125,17 @@ def num_points_scored(name)
   # that level? Think about the return value of your method. Remember that `.each` returns the original collection
   # that you are iterating over. How can you return the number of points for a particular player?
   game_hash.each do |home_or_away, information|
-    # binding.pry
     information.each do |data, stats|
-      binding.pry
       if data == :players
-        # binding.pry
-        name.each do |stat, value|
-          binding.pry
-          # if stat == "points"
-          #   return stat
-          # end
+        stats.each do |stat, value|
+          if stat == :points
+            value.each do |field, point_number|
+              binding.pry
+            return point_number
+          end
         end
       end
+end
 end
 end
 end
