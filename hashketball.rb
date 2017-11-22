@@ -129,10 +129,13 @@ def num_points_scored(name)
     team_information.each do |data, stats|
       if data == :players
         # data = players field, stats = player names
-          binding.pry
         stats.each do |player_name, player_info|
-          if player_name == name
-
+            binding.pry
+            if player_name == name
+              player_info.each do |p_info_field, points|
+                if p_info_field == :points
+                  return points
+                end
           end
         end
       end
