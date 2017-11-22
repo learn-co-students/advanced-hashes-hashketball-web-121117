@@ -119,11 +119,7 @@ game_hash = {
 end
 
 def num_points_scored(name)
-  # * Build a method, `num_points_scored` that takes in an argument of a player's name and returns the
-  # number of points scored for that player.
-  # * Think about where in the hash you will find a player's `:points`. How can you iterate down into
-  # that level? Think about the return value of your method. Remember that `.each` returns the original collection
-  # that you are iterating over. How can you return the number of points for a particular player?
+
   game_hash.each do |location, team_information|
     # location = home, information = team name, colors, players hash
     team_information.each do |data, stats|
@@ -136,11 +132,40 @@ def num_points_scored(name)
                 if p_info_field == :points
                   return points
                 end
+              end
+            end
           end
         end
       end
+    end
 end
+def shoe_size(name)
+
+  game_hash.each do |location, team_information|
+    # location = home, information = team name, colors, players hash
+    team_information.each do |data, stats|
+      if data == :players
+        # data = players field, stats = player names
+        stats.each do |player_name, player_info|
+          # player_name = actual player name, player_info = contained fields for
+            if player_name == name
+              player_info.each do |p_info_field, points|
+                if p_info_field == :shoe
+                  return points
+                end
+              end
+            end
+          end
+        end
+      end
+    end
 end
+
+def team_colors(team_name)
+  if team_name == "Brooklyn Nets"
+    return game_hash[:home][:colors]
+  else
+    return game_hash[:away][:colors]
+  end
+
 end
-end
-num_points_scored(game_hash)
