@@ -1,3 +1,5 @@
+require 'pry'
+
 def game_hash
   # * The top level of the hash has two keys: `:home`, for the home team, and `:away`, for the away team.
   # * The values of the `:home` and `:away` keys are hashes. These hashes have the following keys:
@@ -18,8 +20,8 @@ def game_hash
   #     * `:slam_dunks`
 game_hash = {
   :home => {
-    :team_name => "",
-    :colors => [],
+    :team_name => "Brooklyn Nets",
+    :colors => ["Black", "White"],
     :players =>  {
       "Alan Anderson" => {
         :number => 0,
@@ -74,61 +76,83 @@ game_hash = {
     }
   },
   :away => {
-    :team_name => "",
-    :colors => [],
+    :team_name => "Charlotte Hornets",
+    :colors => ["Turquoise", "Purple"],
     :players =>  {
-      "Alan Anderson" => {
-        :number => ,
-        :shoe => ,
-        :points => ,
-        :rebounds => ,
-        :assists => ,
-        :steals => ,
-        :blocks => ,
-        :slam_dunks =>
+      "Jeff Adrien" => {
+        :number => 4,
+        :shoe => 18,
+        :points => 10,
+        :rebounds => 1,
+        :assists => 1,
+        :steals => 2,
+        :blocks => 7,
+        :slam_dunks => 2
       },
-      "Reggie Evans" => {
-        :number => ,
-        :shoe => ,
-        :points => ,
-        :rebounds => ,
-        :assists => ,
-        :steals => ,
-        :blocks => ,
-        :slam_dunks =>
+      "Bismak Biyombo" => {
+        :number => 0,
+        :shoe => 16,
+        :points => 12,
+        :rebounds => 4,
+        :assists => 7,
+        :steals => 7,
+        :blocks => 15,
+        :slam_dunks => 10
       },
-      "Brook Lopez" => {
-        :number => ,
-        :shoe => ,
-        :points => ,
-        :rebounds => ,
-        :assists => ,
-        :steals => ,
-        :blocks => ,
-        :slam_dunks =>
+      "DeSagna Diop" => {
+        :number => 2,
+        :shoe => 14,
+        :points => 24,
+        :rebounds => 12,
+        :assists => 12,
+        :steals => 4,
+        :blocks => 5,
+        :slam_dunks => 5
       },
-      "Mason Plumlee" => {
-        :number => ,
-        :shoe => ,
-        :points => ,
-        :rebounds => ,
-        :assists => ,
-        :steals => ,
-        :blocks => ,
-        :slam_dunks =>
+      "Ben Gordon" => {
+        :number => 8,
+        :shoe => 15,
+        :points => 33,
+        :rebounds => 3,
+        :assists => 2,
+        :steals => 1,
+        :blocks => 1,
+        :slam_dunks => 0
       },
-      "Jason Terry" => {
-        :number => ,
-        :shoe => ,
-        :points => ,
-        :rebounds => ,
-        :assists => ,
-        :steals => ,
-        :blocks => ,
-        :slam_dunks =>
+      "Brendan Haywood" => {
+        :number => 33,
+        :shoe => 15,
+        :points => 6,
+        :rebounds => 12,
+        :assists => 12,
+        :steals => 22,
+        :blocks => 5,
+        :slam_dunks => 12
       }
     }
   }
-
-
 }
+end
+
+def num_points_scored(name)
+  # * Build a method, `num_points_scored` that takes in an argument of a player's name and returns the
+  # number of points scored for that player.
+  # * Think about where in the hash you will find a player's `:points`. How can you iterate down into
+  # that level? Think about the return value of your method. Remember that `.each` returns the original collection
+  # that you are iterating over. How can you return the number of points for a particular player?
+  game_hash.each do |home_or_away, players|
+    binding.pry
+    players.each do |name, stats|
+      binding.pry
+      if name == name
+        stats.each do |stat, value|
+          if stat == "points"
+            return stat
+          end
+        end
+      end
+end
+
+end
+end
+num_points_scored(hash)
