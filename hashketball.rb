@@ -126,10 +126,11 @@ def num_points_scored(name)
   # that you are iterating over. How can you return the number of points for a particular player?
   game_hash.each do |home_or_away, information|
     # binding.pry
-    information.each do |name, stats|
-      # binding.pry
-      if name == "players"
-        players.each do |stat, value|
+    information.each do |data, stats|
+      binding.pry
+      if data == :players
+        # binding.pry
+        name.each do |stat, value|
           binding.pry
           # if stat == "points"
           #   return stat
