@@ -130,7 +130,7 @@ def num_points_scored(name)
       if data == :players
         # data = players field, stats = player names
         stats.each do |player_name, player_info|
-            binding.pry
+          # player_name = actual player name, player_info = contained fields for
             if player_name == name
               player_info.each do |p_info_field, points|
                 if p_info_field == :points
