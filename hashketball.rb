@@ -169,3 +169,9 @@ def team_colors(team_name)
   end
 
 end
+
+def team_names
+  team_name_array = []
+  game_hash.each do |information, team_info|
+    if game_hash[]
+end
