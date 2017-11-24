@@ -1,10 +1,10 @@
-# require 'pry'
+require 'pry'
 
 def game_hash
 {
   home:{
     team_name:"Brooklyn Nets",
-    colors:["Black","White"],
+    colors:["Black", "White"],
     players:{
       "Alan Anderson" => {
         number:0,
@@ -134,16 +134,100 @@ def num_points_scored(player)
   points
 end
 
-def shoe_size(name)
+def shoe_size(player_name)
   output=0
   game_hash.each do |loc,key|
     key.each do |key2,value|
       if key2 == :players
-        if value = name
-          output = value[1]
+        value.each do |name, stats|
+          if name = player_name
+            output = stats[:shoe]
+          end
         end
       end
     end
   end
   output
+end
+
+def team_colors (team)
+  output=[]
+
+  game_hash.each do |loc, key|
+    key.each do |key2,value|
+      if value == team
+        output << game_hash[loc][key2][:colors]
+      end
+    end
+  end
+  output
+end
+
+def team_names
+  output= []
+  game_hash.each do |loc,details|
+    details.each do |stats, stats_value|
+      if stats == :team_name
+        output << stats_value
+      end
+    end
+  end
+  output
+end
+
+def player_numbers(team)
+  output=[]
+
+  game_hash.each do |loc,key|
+    key.each do |key2, value|
+      if value == team
+        if key2 == :players
+          value.each do |value2, num|
+            binding.pry
+            if num == :number
+              output << [:number]
+            end
+          end
+        end
+      end
+    end
+  end
+output
+end
+player_numbers("Brooklyn Nets")
+
+def player_stats(name)
+  output=[]
+
+  game_hash.each do |loc,stats|
+    stats.each do |desc,det|
+      if det == :players
+        det.each do |player, player_stats|
+          if player==name
+            output<< player_stats
+          end
+        end
+      end
+    end
+  end
+  output
+end
+
+def big_shoe_rebounds
+rebounds_output=0
+shoe_size_compare=0
+
+  game_hash.each do |loc,key|
+    key.each do |key2,value|
+      if key2 == :players
+        value.each do |name,stats|
+          if [stats][:shoe] > shoe_size_compare
+            shoe_size_compare = [:shoe]
+            rebounds_output = [:rebounds]
+          end
+        end
+      end
+    end
+  end
+rebounds_output
 end
