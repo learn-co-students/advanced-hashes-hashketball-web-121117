@@ -197,6 +197,26 @@ end
 
 end
 
+# def player_stats(player)
+#   player_stats_array = []
+#   game_hash.each do |home_away, team_info|
+#     team_info[:players].each do |player_name, player_stats|
+#       if player_stats == player
+#         player_stats_array<< player_stats
+#       end
+#     end
+#   end
+# end
 
-
-    # player_number_array.push(game_hash[home_away][team_info][:players])
+def player_stats(player)
+  player_stats_array = []
+  game_hash.each do |home_away, team_info|
+    team_info[:players].each do |player_name, player_stats|
+      # puts player_stats
+      if player_name == player
+        player_stats_array<< player_stats
+      end
+    end
+  end
+  return player_stats_array[0]
+end
