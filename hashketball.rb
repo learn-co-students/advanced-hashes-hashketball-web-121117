@@ -220,3 +220,31 @@ def player_stats(player)
   end
   return player_stats_array[0]
 end
+
+# def big_shoe_rebounds
+#   shoe_size_array = []
+#   max_shoe = game_hash.each do |home_away, team_info|
+#     team_info[:players].each do |player_name, player_stats|
+#       shoe_size_array<< player_stats[:shoe]
+#       end
+#     end
+#       return shoe_size_array
+# end
+def big_shoe_rebounds
+  shoe_size_array = []
+  max_shoe = game_hash.each do |home_away, team_info|
+    team_info[:players].each do |player_name, player_stats|
+      shoe_size_array<< player_stats[:shoe]
+      end
+    end
+      # return shoe_size_array
+      max_shoe_size = shoe_size_array.sort[-1]
+  game_hash.each do |home_away, team_info|
+    team_info[:players].each do |player_name, player_stats|
+      if player_stats[:shoe] == max_shoe_size
+        return player_stats[:rebounds]
+      end
+    end
+  end
+      # return max_shoe_size
+end
