@@ -190,5 +190,16 @@ def player_numbers(team)
   end
   return player_number_array
 end
+def player_numbers(team)
+  player_number_array = []
+  game_hash.each do |home_away, team_info|
+    # player_number_array<< team_info[:players]
+    team_info[:players].each do |player_name, player_stats|
+      player_number_array<< player_stats[:number]
+      # player_number_array.push(game_hash[home_away][team_info][player_name][:number])
+    end
+  end
+  return player_number_array
+end
 
     # player_number_array.push(game_hash[home_away][team_info][:players])
