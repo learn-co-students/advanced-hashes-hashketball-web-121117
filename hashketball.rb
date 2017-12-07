@@ -158,6 +158,56 @@ def big_shoe_rebounds
   shoe = 0
   game_hash.each do |location, info|
     info[:players].each {|name, stat| shoe = stat[:shoe] if shoe < stat[:shoe]}
+  end
+  game_hash.each do |location, info|
     info[:players].each {|name, stat| return stat[:rebounds] if shoe == stat[:shoe]}
+  end
+end
+
+def most_points_scored
+  points = 0
+  game_hash.each do |location, info|
+    info[:players].each {|name, stat| points = stat[:points] if points < stat[:points]}
+  end
+  game_hash.each do |location, info|
+    info[:players].each {|name, stat| return name if points == stat[:points]}
+  end
+end
+
+def winning_team
+  home = 0
+  away = 0
+  game_hash[:home][:players].each {|name, stat| home += stat[:points]}
+  game_hash[:away][:players].each {|name, stat| away += stat[:points]}
+  if home > away
+    game_hash[:home][:team_name]
+  else
+    game_hash[:away][:team_name]
+  end
+end
+
+def player_with_longest_name
+  name_length = 0
+  game_hash.each do |location, info|
+    info[:players].each_key {|name| name_length = name.length if name_length < name.length}
+  end
+  game_hash.each do |location, info|
+    info[:players].each_key {|name| return name if name.length == name_length}
+  end
+end
+
+def long_name_steals_a_ton?
+  steals = 0
+  game_hash.each do |location, info|
+    info[:players].each {|name, stat| steals = stat[:steals] if steals < stat[:steals]}
+  end
+  game_hash.each do |location, info|
+    if info[:players].has_key?(player_with_longest_name)
+      if info[:players][player_with_longest_name][:steals] == steals
+        return true
+      else
+        return false
+      end
+    end
   end
 end
