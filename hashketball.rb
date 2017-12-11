@@ -107,15 +107,20 @@ def game_hash
 }#closes whole hash
 end
 
+# def find_player(player_name)
+# players = game_hash[:home][:players] + game_hash[:away][:players]
+# players.find { |player| player[:player_name] == player_name }
+# end
+
 def num_points_scored(player_name)
-results = nil
+  results = nil
     game_hash.each do | k, v |
       if v[:players].has_key?(player_name)
       results = v[:players][player_name][:points]
       end
     end
     return results
-  end
+end
 
 def shoe_size(player_name)
 results = nil
@@ -155,13 +160,6 @@ end
 results
 end
 
-# def get_all_players
-# players_arr = []
-# players_arr << game_hash[:home][:players]
-# players_arr << game_hash[:away][:players]
-# players_arr
-# end
-
 def player_stats(player_name)
   game_hash.each do |location, team_data|
   stats = team_data[:players][player_name]
@@ -186,6 +184,47 @@ end
 
 # 1. Write a method that returns true if the player with the longest name had the most steals. Call the method `long_name_steals_a_ton?`.
 
+def most_points_scored
+best_player = ""
+points = 0
+game_hash.each do |location, team_data|
+  team_data[:players].each do |name, stats|
+    if stats[:points] > points
+      points = stats[:points]
+      best_player= name
+    end
+  end
+end
+best_player
+end
+
+def winning_team
+home_score = 0
+away_score = 0
+game_hash[:home][:players].each do |k, v|
+    home_score += v[:points]
+end
+game_hash[:away][:players].each do |k, v|
+    away_score += v[:points]
+end
+if home_score > away_score
+  game_hash[:home][:team_name]
+else
+    game_hash[:away][:team_name]
+end
+end
+
+def player_with_longest_name
+longest_name = ""
+game_hash.each do |location, team_data|
+  team_data[:players].each do |name, stats|
+      if name.length > longest_name.length
+        longest_name = name
+      end
+  end
+end
+longest_name
+end
 
 def long_name_steals_a_ton?
 longest_name = ""
