@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'hashketball' do
 
-  describe '#game_hash' do
+  describe ' game_hash' do
     let(:top_level_keys) { [:home, :away] }
     let(:team_level_keys) { [:team_name, :colors, :players] }
 
@@ -23,7 +23,7 @@ describe 'hashketball' do
     end
   end
 
-  describe '#num_points_scored' do
+  describe ' num_points_scored' do
 
     it 'knows the number of points scored by each player' do
       expect(num_points_scored("Jeff Adrien")).to eq(10)
@@ -40,7 +40,7 @@ describe 'hashketball' do
 
   end
 
-  describe '#shoe_size' do
+  describe ' shoe_size' do
 
     it 'knows the shoe size of each player' do
       expect(shoe_size("Jeff Adrien")).to eq(18)
@@ -57,7 +57,7 @@ describe 'hashketball' do
 
   end
 
-  describe '#team_colors' do
+  describe ' team_colors' do
 
     it 'knows the Brooklyn Nets colors are Black and White' do
       expect(team_colors("Brooklyn Nets")).to contain_exactly("Black", "White")
@@ -65,7 +65,7 @@ describe 'hashketball' do
       end
     end
 
-  describe '#team_names' do
+  describe ' team_names' do
 
     it 'returns the team names' do
       teams = team_names
@@ -77,7 +77,7 @@ describe 'hashketball' do
 
   end
 
-  describe '#player_numbers' do
+  describe ' player_numbers' do
 
     it 'returns the player jersey numbers' do
       charlotte_numbers = [0, 2, 4, 8, 33]
@@ -89,7 +89,7 @@ describe 'hashketball' do
 
   end
 
-  describe '#player_stats' do
+  describe ' player_stats' do
 
     let(:jeff_stats) {
       {
@@ -236,7 +236,7 @@ describe 'hashketball' do
 
   end
 
-  describe '#big_shoe_rebounds' do
+  describe ' big_shoe_rebounds' do
 
     it 'returns the number of rebounds of the player with the biggest shoe size' do
       expect(big_shoe_rebounds).to eq(12)
@@ -246,44 +246,44 @@ describe 'hashketball' do
 
 end
 
-# If you'd like to work on the bonus, uncomment these tests.
+#If you'd like to work on the bonus, uncomment these tests.
 
-#describe 'bonus' do
-#
-#   describe '#most_points_scored' do
-#
-#     it 'returns Ben Gordon' do
-#       expect(most_points_scored).to eq("Ben Gordon")
-#     end
-#
-#   end
-#
-#   describe '#winning_team' do
-#
-#     it 'returns the Brooklyn Nets' do
-#       expect(winning_team).to eq("Brooklyn Nets")
-#     end
-#
-#   end
-#
-#   describe '#player_with_longest_name' do
-#
-#     it 'returns Brendan Haywood' do
-#       expect(player_with_longest_name).to eq("Brendan Haywood")
-#     end
-#
-#   end
+ describe 'bonus' do
 
-# end
+    describe ' most_points_scored' do
 
-# describe 'super bonus' do
+      it 'returns Ben Gordon' do
+        expect(most_points_scored).to eq("Ben Gordon")
+      end
 
-#   describe '#long_name_steals_a_ton?' do
+    end
 
-#     it 'returns true' do
-#       expect(long_name_steals_a_ton?).to eq(true)
-#     end
+    describe ' winning_team' do
 
-#   end
+      it 'returns the Brooklyn Nets' do
+        expect(winning_team).to eq("Brooklyn Nets")
+      end
 
-# end
+    end
+
+    describe ' player_with_longest_name' do
+
+      it 'returns Brendan Haywood' do
+        expect(player_with_longest_name).to eq("Brendan Haywood")
+      end
+
+    end
+
+  end
+
+  describe 'super bonus' do
+
+    describe ' long_name_steals_a_ton?' do
+
+      it 'returns true' do
+        expect(long_name_steals_a_ton?).to eq(true)
+      end
+
+    end
+
+  end

@@ -118,39 +118,26 @@ end
 
 def num_points_scored(player)
   game_hash.each do |team, categories|
-    categories.each do |category, values|
-      if category == :players
-        values.each do |name, stats|
-          if name == player
-            stats.each do |stat, svalue|
-              if stat == :points
-                return svalue
-              end
-            end
-          end
-        end
+    categories[:players].each do |name, stats|
+      if name == player
+        return stats[:points]
       end
     end
   end
 end
 
+
 def shoe_size(player)
   game_hash.each do |team, categories|
-    categories.each do |category, values|
-      if category == :players
-        values.each do |name, stats|
-          if name == player
-            stats.each do |stat, svalue|
-              if stat == :shoe
-                return svalue
-              end
-            end
-          end
-        end
+    categories[:players].each do |name, stats|
+      if name == player
+        return stats[:shoe]
       end
     end
   end
 end
+
+
 
 def team_colors(team)
   game_hash.each do |side, categories|
@@ -228,4 +215,32 @@ def big_shoe_rebounds
       end
     end
   end
+end
+
+def players
+  game_hash[:home][:players].merge(game_hash[:away][:players])
+end
+
+def most_points_scored
+  players.sort_by{|player, value| value[:points]}.last[0]
+end
+
+def winning_team
+  result = {}
+  game_hash.each do |team, info|
+    result[team] = 0
+    info[:players].each do |player, stats|
+      result[team] += stats[:points]
+    end
+  end
+  game_hash[result.sort_by { |team, score| score }.last[0]][:team_name]
+end
+
+def player_with_longest_name
+  players.keys.sort_by{|name| name.length}.last
+end
+
+def long_name_steals_a_ton?
+  most_steals = players.sort_by{|names, stats| stats[:steals]}.last[0]
+  true if player_with_longest_name == most_steals
 end
