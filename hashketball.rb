@@ -52,3 +52,22 @@ end
 def big_shoe_rebounds
   game_hash.map {|side, categories| categories[:players].sort_by { |name, stats| stats[:shoe] } }[0][0][1][:rebounds]
 end
+
+def most_points_scored
+  game_hash.map {|side, categories| categories[:players].sort_by { |name, stats| stats[:points]}}.last.last.first
+end
+
+def winning_team
+  home = game_hash[:home][:players].map {|name, stats| stats[:points]}.reduce(:+)
+  away = game_hash[:away][:players].map {|name, stats| stats[:points]}.reduce(:+)
+  home > away ? game_hash[:home][:team_name] : game_hash[:away][:team_name]
+end
+
+def player_with_longest_name
+  game_hash.map {|side, categories| categories[:players].sort_by {|name, stats| name.length}}.last.last.first
+end
+
+def long_name_steals_a_ton?
+  most_steals = game_hash.map {|side, categories| categories[:players].sort_by {|name, stats| stats[:steals]}}.last.last.first
+  most_steals == player_with_longest_name
+end
