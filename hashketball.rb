@@ -109,13 +109,13 @@ end
 
 def num_points_scored(player_name)
 results = nil
-  game_hash.each do | k, v |
-    if v[:players].has_key?(player_name)
-    results = v[:players][player_name][:points]
+    game_hash.each do | k, v |
+      if v[:players].has_key?(player_name)
+      results = v[:players][player_name][:points]
+      end
     end
+    return results
   end
-  return results
-end
 
 def shoe_size(player_name)
 results = nil
@@ -182,4 +182,25 @@ game_hash.each do |location, team_data|
   end
 end
 big_shoe_rebounds
+end
+
+# 1. Write a method that returns true if the player with the longest name had the most steals. Call the method `long_name_steals_a_ton?`.
+
+
+def long_name_steals_a_ton?
+longest_name = ""
+most_steal = 0
+game_hash.each do |location, team_data|
+  team_data[:players].each do |name, stats|
+      if name.length > longest_name.length
+        longest_name = name
+        most_steal= stats[:steals]
+      end
+      if stats[:steals] > most_steal
+        return false
+      else
+        return true
+      end
+  end
+end
 end
