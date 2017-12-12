@@ -26,7 +26,7 @@ def game_hash
 end
 
 def players
-  players = game_hash[:home][:players].merge(game_hash[:away][:players])
+  game_hash[:home][:players].merge(game_hash[:away][:players])
 end
 
 def teams
@@ -42,7 +42,7 @@ def shoe_size(player)
 end
 
 def team_colors(team)
-  game_hash.map {|side, categories| return categories[:colors] if categories[:team_name] == team}
+  teams.each {|name| return name[:colors] if name[:team_name] == team}
 end
 
 def team_names
@@ -50,7 +50,9 @@ def team_names
 end
 
 def player_numbers(team)
-  game_hash.map { |side, categories| categories[:team_name] == team ? categories[:players].values.map {|k, v| k[:number] } : nil }.compact.flatten
+  numbers = nil
+  teams.each {|name| numbers = name[:players] if name[:team_name] == team}
+  numbers.map { |name, stats| stats[:number] }
 end
 
 def player_stats(player)
@@ -72,10 +74,9 @@ def winning_team
 end
 
 def player_with_longest_name
-  players.sort_by {|name, stats| name.length}.last.first
+  players.max_by {|name, stats| name.length}.first
 end
 
 def long_name_steals_a_ton?
-  most_steals = players.sort_by {|name, stats| stats[:steals]}.last.first
-  most_steals == player_with_longest_name
+  players.max_by {|name, stats| stats[:steals]}.first == player_with_longest_name
 end
