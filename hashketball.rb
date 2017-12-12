@@ -116,24 +116,22 @@ def game_hash
 }
 end
 
+#intentionally used basic mathods
+
+def players #helper method
+  game_hash[:home][:players].merge(game_hash[:away][:players])
+end
+
 def num_points_scored(player)
-  game_hash.each do |team, categories|
-    categories[:players].each do |name, stats|
-      if name == player
-        return stats[:points]
-      end
-    end
+  players.each do |name, stats| #players.fetch(player)[:points] is more efficient
+    return stats[:points] if name == player
   end
 end
 
 
 def shoe_size(player)
-  game_hash.each do |team, categories|
-    categories[:players].each do |name, stats|
-      if name == player
-        return stats[:shoe]
-      end
-    end
+  players.each do |name, stats| #players.fetch(player)[:shoe] is more efficient
+    return stats[:shoe] if name == player
   end
 end
 
@@ -141,84 +139,36 @@ end
 
 def team_colors(team)
   game_hash.each do |side, categories|
-    categories.each do |category, values|
-      if game_hash[side][category] == team
-        return game_hash[side][:colors]
-      end
-    end
+    return categories[:colors] if categories[:team_name] == team
   end
 end
 
 def team_names
-  team_names = []
-  game_hash.each do |side, categories|
-    categories.each do |category, value|
-      if category == :team_name
-        team_names << game_hash[side][category]
-      end
-    end
+  game_hash.map do |side, categories|
+    categories[:team_name]
   end
-  team_names
 end
 
 def player_numbers(tname)
-  jerseys = []
-  game_hash.each do |team, categories|
-    categories.each do |category, values|
-      if game_hash[team][:team_name] == tname
-        if category == :players
-          values.each do |name, stats|
-            stats.each do |stat, value|
-              if stat == :number
-                jerseys << game_hash[team][category][name][stat]
-              end
-            end
-          end
-        end
+  jersey = []
+  game_hash.map do |team, categories|
+    categories[:players].map do |name, stats|
+      if categories[:team_name] == tname
+        jersey << stats[:number]
       end
     end
   end
-  jerseys
+  jersey
 end
 
 def player_stats(player)
-  game_hash.each do |team, categories|
-    categories.each do |category, values|
-      if category == :players
-        values.each do |name, stats|
-          if name == player
-            return stats
-          end
-        end
-      end
-    end
+  players.each do |name, stats| #players.fetch(player) is more efficient
+    return stats if name == player
   end
 end
 
 def big_shoe_rebounds
-  biggest_shoe = 0
-  game_hash.each do |team, categories|
-    categories.each do |category, values|
-      if category == :players
-        values.each do |name, stats|
-            stats.each do |stat, svalue|
-              if stat == :shoe
-                if svalue > biggest_shoe
-                  biggest_shoe = svalue
-                end
-              end
-            end
-            if game_hash[team][:players][name][:shoe] == biggest_shoe
-              return game_hash[team][:players][name][:rebounds]
-          end
-        end
-      end
-    end
-  end
-end
-
-def players
-  game_hash[:home][:players].merge(game_hash[:away][:players])
+  players.map{|name, stats| stats}.sort_by{|hash| hash[:shoe]}.last[:rebounds]
 end
 
 def most_points_scored
@@ -226,14 +176,13 @@ def most_points_scored
 end
 
 def winning_team
-  result = {}
-  game_hash.each do |team, info|
-    result[team] = 0
-    info[:players].each do |player, stats|
-      result[team] += stats[:points]
-    end
+  home_pts = game_hash[:home][:players].map {|name, stats| stats[:points]}.inject(:+)
+  away_pts = game_hash[:away][:players].map {|name, stats| stats[:points]}.inject(:+)
+  if home_pts >= away_pts
+    game_hash[:home][:team_name]
+  else
+    game_hash[:away][:team_name]
   end
-  game_hash[result.sort_by { |team, score| score }.last[0]][:team_name]
 end
 
 def player_with_longest_name
